@@ -10,8 +10,19 @@ function Blog() {
   const [deleteId, setDeleteId] = useState(null);
   const [password, setPassword] = useState('');
   const [blogs, setBlogs] = useState(() => {
-    const savedBlogs = localStorage.getItem('flowerBlogs');
-    return savedBlogs ? JSON.parse(savedBlogs) : [];
+    const permanentPost = {
+      id: 'permanent 0',
+      title: 'Magical Glow Moss: A Beginner’s Guide🪻✨',
+      subtitle: 'How to grow and care for bioluminescent moss at home',
+      content: 'Glowing moss creates an enchanting atmosphere in any garden. These tiny plants emit a faint blue-green light thanks to bioluminescence, which you can nurture indoors or outdoors with proper humidity and minimal direct sunlight. In this guide, I’ll share tips for propagation, watering, and placement to help you make your moss garden truly magical.',
+      image: '/images/glow-moss.jpg',
+      date: new Date().toLocaleDateString(),
+      time: new Date().toLocaleTimeString(),
+      createdAt: new Date().toISOString()
+    };
+    // Clear all posts except permanent post on load
+    localStorage.setItem('flowerBlogs', JSON.stringify([permanentPost]));
+    return [permanentPost];
   });
 
   // Save blogs to localStorage whenever blogs state changes
@@ -75,6 +86,7 @@ function Blog() {
 
   // Handle delete
   const handleDelete = (id) => {
+    if (id === 'permanent 0') return; // Prevent deleting permanent post
     setDeleteId(id);
     setShowDeleteConfirm(true);
   };
