@@ -2,6 +2,7 @@
   "name": "glow-flora-blog",
   "version": "1.0.0",
   "scripts": {
+    "postinstall": "cd backend && npm install && cd ../frontend && npm install",
     "start": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
     "start-frontend": "cd frontend && npm start",
     "start-backend": "cd backend && npm start",
